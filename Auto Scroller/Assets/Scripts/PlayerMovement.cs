@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent OnLandEvent;
 
     private Rigidbody2D rb;
-    private float moveDirection;
     private bool isGrounded;
     private bool isJumping;
     private float jumpTimeCounter;
@@ -34,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("Speed", Mathf.Abs(moveDirection * moveSpeed));
+        animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
         
         
         if (isGrounded && Input.GetButtonDown("Jump"))
@@ -67,8 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveDirection = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
         if (isGrounded && isJumping == false)
         {
