@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent OnLandEvent;
 
     private Rigidbody2D rb;
-    private bool facingRight = true;
     private float moveDirection;
     private bool isGrounded;
     private bool isJumping;
@@ -36,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         animator.SetFloat("Speed", Mathf.Abs(moveDirection * moveSpeed));
+        
         
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
@@ -63,8 +63,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
-
-        Animate();
     }
 
     private void FixedUpdate()
@@ -81,23 +79,5 @@ public class PlayerMovement : MonoBehaviour
     public void OnLanding()
     {
         animator.SetBool("IsJumping", false);
-    }
-
-    private void Animate()
-    {
-        if (moveDirection > 0 && !facingRight)
-        {
-            FlipCharacter();
-        }
-        else if (moveDirection < 0 && facingRight)
-        {
-            FlipCharacter();
-        }
-    }
-
-    private void FlipCharacter()
-    {
-        facingRight = !facingRight;
-        transform.Rotate(0f, 180f, 0f);
     }
 }
