@@ -7,9 +7,8 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
-    //public float jumpForce;
-    public float jumpMinSpeed;
-    public float jumpMaxSpeed;
+    public float jumpForce;
+    public float jumpTime;
     public Transform ceilingCheck;
     public Transform groundCheck;
     public LayerMask groundObjects;
@@ -20,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool facingRight = true;
     private float moveDirection;
-    private bool isJumping = false;
-    private bool isNotJumping = false;
     private bool isGrounded;
+    private bool isJumping;
+    private float jumpTimeCounter;
 
     
     private void Awake()
@@ -36,19 +35,33 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        moveDirection = Input.GetAxis("Horizontal");
+        animator.SetFloat("Speed", Mathf.Abs(moveDirection * moveSpeed));
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
-        if (isGrounded)
-        {
-            OnLandEvent.Invoke();
-        }
         
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-        if (Input.GetButtonUp("Jump") && !isGrounded)
+
+        if (Input.GetButton("Jump"))
         {
-            isNotJumping = true;
+            if (jumpTimeCounter > 0 && isJumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
         }
 
         Animate();
@@ -56,23 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveDirection = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
-        animator.SetFloat("Speed", Mathf.Abs(moveDirection * moveSpeed));
-        if (isJumping)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpMaxSpeed);
-            isJumping = false;
-            animator.SetBool("IsJumping", true);
-        }
-        if (isNotJumping)
-        {
-            if (rb.velocity.y > jumpMinSpeed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpMinSpeed);
-                isNotJumping = false;
-            }
-        }
     }
 
     public void OnLanding()
