@@ -35,15 +35,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        moveDirection = Input.GetAxis("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(moveDirection * moveSpeed));
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
         
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            animator.SetBool("IsJumping", true);
         }
 
         if (Input.GetButton("Jump"))
@@ -52,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 jumpTimeCounter -= Time.deltaTime;
+
             }
             else
             {
@@ -69,7 +69,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        moveDirection = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
+        if (isGrounded && isJumping == false)
+        {
+            OnLandEvent.Invoke();
+        }
     }
 
     public void OnLanding()
