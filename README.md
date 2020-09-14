@@ -1,2 +1,2 @@
 # 2D-Autoscroller-Game
-A 2D Sidescoller game that autoscrolls. For a research project involving pressure-sensitive controllers.
+A 2D Sidescroller game that autoscrolls. For a research project involving pressure-sensitive controllers.
