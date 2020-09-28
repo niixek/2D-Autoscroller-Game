@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     public float checkRadius;
     public Animator animator;
     public UnityEvent OnLandEvent;
+    public FinishLineCheck checkFinish;
 
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isJumping;
     private float jumpTimeCounter;
+    private bool jumpAbility = true;
 
     
     private void Awake()
@@ -32,32 +34,34 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
         
-        
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if (jumpAbility)
         {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            animator.SetBool("IsJumping", true);
-        }
-
-        if (Input.GetButton("Jump"))
-        {
-            if (jumpTimeCounter > 0 && isJumping)
+            if (isGrounded && Input.GetButtonDown("Jump"))
             {
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                jumpTimeCounter -= Time.deltaTime;
-
+                animator.SetBool("IsJumping", true);
             }
-            else
+
+            if (Input.GetButton("Jump"))
+            {
+                if (jumpTimeCounter > 0 && isJumping)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                    jumpTimeCounter -= Time.deltaTime;
+
+                }
+                else
+                {
+                    isJumping = false;
+                }
+            }
+
+            if (Input.GetButtonUp("Jump"))
             {
                 isJumping = false;
             }
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            isJumping = false;
         }
     }
 
@@ -68,6 +72,10 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && isJumping == false)
         {
             OnLandEvent.Invoke();
+        }
+        if (!checkFinish.canJump)
+        {
+            jumpAbility = false;
         }
     }
 
