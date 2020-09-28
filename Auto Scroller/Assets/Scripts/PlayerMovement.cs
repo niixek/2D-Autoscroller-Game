@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
@@ -30,14 +31,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(WaitCountdown());
+    }
+
+    IEnumerator WaitCountdown()
+    {
+        float initialSpeed = moveSpeed;
+        moveSpeed = 0f;
+        animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        yield return new WaitForSeconds(3f);
+        moveSpeed = initialSpeed;
+    }
+
     void Update()
     {
-
         animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
         if (jumpAbility)
         {
-
-
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
                 isJumping = true;
@@ -45,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 animator.SetBool("IsJumping", true);
             }
-
             if (Input.GetButton("Jump"))
             {
                 if (jumpTimeCounter > 0 && isJumping)
@@ -59,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
                     isJumping = false;
                 }
             }
-
             if (Input.GetButtonUp("Jump"))
             {
                 isJumping = false;
