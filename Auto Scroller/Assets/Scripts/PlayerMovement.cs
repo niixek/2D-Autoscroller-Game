@@ -32,10 +32,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        
         if (jumpAbility)
         {
+
+            animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
+
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
                 isJumping = true;
@@ -62,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 isJumping = false;
             }
+        }
+        else
+        {
+            moveSpeed *= 0.99f;
         }
     }
 

@@ -10,26 +10,14 @@ public class FinishLineCheck : MonoBehaviour
     public bool canJump = true;
 
     private bool isFinished;
-    private Rigidbody2D rb;
-    private bool done = false;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     private void FixedUpdate()
     {
-        if (!done)
+        isFinished = Physics2D.OverlapCircle(flagCheck.position, checkRadius, flag);
+        if (isFinished)
         {
-            isFinished = Physics2D.OverlapCircle(flagCheck.position, checkRadius, flag);
-            if (isFinished)
-            {
-                rb.velocity = new Vector2(0, 0);
-                animator.SetBool("IsFinished", true);
-                canJump = false;
-                done = true;
-            }
+            animator.SetBool("IsFinished", true);
+            canJump = false;
         }
     }
 }
