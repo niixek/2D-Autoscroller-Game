@@ -66,7 +66,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            moveSpeed *= 0.99f;
+            if (moveSpeed > 0.1)
+            {
+                moveSpeed *= 0.99f;
+            }
+            else
+            {
+                moveSpeed = 0;
+            }
         }
     }
 
