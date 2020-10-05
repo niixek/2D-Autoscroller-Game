@@ -75,17 +75,6 @@ public class PlayerMovement : MonoBehaviour
                 isJumping = false;
             }
         }
-        else
-        {
-            if (moveSpeed > 0.1)
-            {
-                moveSpeed *= 0.99f;
-            }
-            else
-            {
-                moveSpeed = 0;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -99,6 +88,17 @@ public class PlayerMovement : MonoBehaviour
         if (!checkFinish.canJump)
         {
             jumpAbility = false;
+        }
+        if (!jumpAbility)
+        {
+            if (moveSpeed > 0.1)
+            {
+                moveSpeed *= 0.95f;
+            }
+            else
+            {
+                moveSpeed = 0;
+            }
         }
     }
 
