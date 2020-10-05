@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public UnityEvent OnLandEvent;
     public FinishLineCheck checkFinish;
+    public Timer timerObj;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         if (!checkFinish.canJump)
         {
             jumpAbility = false;
+            timerObj.Finish();
         }
         if (!jumpAbility)
         {
