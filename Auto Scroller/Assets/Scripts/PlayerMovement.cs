@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent OnLandEvent;
     public FinishLineCheck checkFinish;
     public Timer timerObj;
+    public PlayAgain playAgainMenu;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -90,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpAbility = false;
             timerObj.Finish();
+            playAgainMenu.gameObject.SetActive(true);
+
         }
         if (!jumpAbility)
         {
