@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = Vector2.right * laserSpeed;
+        rb.velocity = transform.right * laserSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
