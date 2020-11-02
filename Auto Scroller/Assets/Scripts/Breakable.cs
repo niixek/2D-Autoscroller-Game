@@ -16,12 +16,12 @@ public class Breakable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile"))
         {
-            Vector3 hitPos = Vector3.zero;
-            foreach (ContactPoint2D hitPoint in collision.contacts)
+            Vector3 hitPosition = Vector3.zero;
+            foreach (ContactPoint2D hit in collision.contacts)
             {
-                hitPos.x = hitPoint.point.x - 0.01f * hitPoint.normal.x;
-                hitPos.y = hitPoint.point.y - 0.01f * hitPoint.normal.y;
-                BreakableMap.SetTile(BreakableMap.WorldToCell(hitPos), null);
+                hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
+                hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
+                BreakableMap.SetTile(BreakableMap.WorldToCell(hitPosition), null);
             }
         }
     }

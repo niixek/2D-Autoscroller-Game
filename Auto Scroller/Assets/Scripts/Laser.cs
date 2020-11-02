@@ -3,7 +3,7 @@
 public class Laser : MonoBehaviour
 {
     public float laserSpeed = 15f;
-    public float laserBaseDamage = 10f;
+    public int laserBaseDamage = 10;
     public Rigidbody2D rb;
 
     private void FixedUpdate()
@@ -11,9 +11,11 @@ public class Laser : MonoBehaviour
         rb.velocity = transform.right * laserSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.CompareTag("Breakable")) {
+            collision.GetComponent<Break>().health -= laserBaseDamage;
+            Destroy(gameObject);
+        }
     }
-
 }

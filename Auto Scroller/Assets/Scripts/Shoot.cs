@@ -24,6 +24,6 @@ public class Shoot : MonoBehaviour
 
     private void Shooting()
     {
-        Instantiate(LaserPrefab, firingPoint.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+        Instantiate(LaserPrefab, firingPoint.position, Quaternion.identity);
     }
 }
