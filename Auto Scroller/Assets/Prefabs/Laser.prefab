@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSpeed: 15
-  laserBaseDamage: 2
+  laserBaseDamage: 1
   rb: {fileID: 2561860617041965511}
 --- !u!1 &2561860617095106345
 GameObject:

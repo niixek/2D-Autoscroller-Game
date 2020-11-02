@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class Break : MonoBehaviour
 {
-    public int health;
     public HealthBar healthBar;
     public int maxHealth;
     public GameObject canvas;
 
     private bool showing = false;
+    public int health;
 
     private void Start()
     {
+        health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         canvas.SetActive(false);
     }

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    public float fireRate = 0.2f;
+    public float fireRate = 1f;
     public Transform firingPoint;
-    public GameObject LaserPrefab;
+    public Laser laser;
 
     private float timeUntilFire;
     private bool wait = true;
+    private float chargeTimer = 0;
 
     private void Start()
     {
@@ -24,8 +25,16 @@ public class Shoot : MonoBehaviour
 
     private void Update()
     {
-        if (!wait && Input.GetKeyDown(KeyCode.S) && timeUntilFire < Time.time)
+        if (!wait && Input.GetKey(KeyCode.S))
         {
+            chargeTimer += (5*Time.deltaTime);
+            print(chargeTimer);
+        }
+        if (!wait && Input.GetKeyUp(KeyCode.S) && timeUntilFire < Time.time)
+        {
+            laser.finalLaserDamage = (int)(chargeTimer) + laser.laserBaseDamage;
+            print(laser.finalLaserDamage);
+            chargeTimer = 0;
             Shooting();
             timeUntilFire = Time.time + fireRate;
         }
@@ -33,6 +42,6 @@ public class Shoot : MonoBehaviour
 
     private void Shooting()
     {
-        Instantiate(LaserPrefab, firingPoint.position, Quaternion.identity);
+        Instantiate(laser, firingPoint.position, Quaternion.identity);
     }
 }

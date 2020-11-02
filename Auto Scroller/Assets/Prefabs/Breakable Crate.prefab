@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15111a3e31596984fbe97e4901fbaa25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
   healthBar: {fileID: 5410898040400259789}
   maxHealth: 1
   canvas: {fileID: 5410898038575878413}
+  health: 1
 --- !u!1 &5410898038575878413
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -898845313
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &5410898038575878451
@@ -509,7 +509,7 @@ MonoBehaviour:
     serializedVersion: 2
     key0: {r: 0.4056604, g: 0, b: 0, a: 1}
     key1: {r: 0.5849056, g: 0, b: 0, a: 1}
-    key2: {r: 1, g: 0, b: 0, a: 0}
+    key2: {r: 1, g: 0.23722279, b: 0, a: 0}
     key3: {r: 0, g: 0.9811321, b: 0.076492816, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
