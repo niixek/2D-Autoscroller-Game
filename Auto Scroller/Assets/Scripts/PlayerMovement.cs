@@ -43,7 +43,9 @@ public class PlayerMovement : MonoBehaviour
         float initialSpeed = moveSpeed;
         moveSpeed = 0f;
         animator.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        jumpAbility = false;
         yield return new WaitForSeconds(3f);
+        jumpAbility = true;
         moveSpeed = initialSpeed;
     }
 

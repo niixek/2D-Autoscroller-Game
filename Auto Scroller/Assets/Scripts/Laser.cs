@@ -11,6 +11,11 @@ public class Laser : MonoBehaviour
         rb.velocity = transform.right * laserSpeed;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Breakable")) {

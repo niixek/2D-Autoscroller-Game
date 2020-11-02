@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Shoot : MonoBehaviour
@@ -7,15 +8,23 @@ public class Shoot : MonoBehaviour
     public Transform firingPoint;
     public GameObject LaserPrefab;
 
-    float timeUntilFire;
+    private float timeUntilFire;
+    private bool wait = true;
 
     private void Start()
     {
+        StartCoroutine(WaitCountdown());
+    }
+
+    IEnumerator WaitCountdown()
+    {
+        yield return new WaitForSeconds(3f);
+        wait = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) && timeUntilFire < Time.time)
+        if (!wait && Input.GetKeyDown(KeyCode.S) && timeUntilFire < Time.time)
         {
             Shooting();
             timeUntilFire = Time.time + fireRate;
