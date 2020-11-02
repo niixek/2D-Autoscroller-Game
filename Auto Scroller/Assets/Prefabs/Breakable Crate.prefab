@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 973366635657318215}
   - component: {fileID: 8901133308199298237}
   m_Layer: 10
-  m_Name: Breakable Crate 1
+  m_Name: Breakable Crate
   m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &5410898038575878451
 MonoBehaviour:
